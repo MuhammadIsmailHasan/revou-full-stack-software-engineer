@@ -1,0 +1,227 @@
+
+FUNCTION filterOrders (orders, threshold)
+    SET results = []
+    FOR EACH order IN orders
+        IF order.amount >= threshold THEN
+            ADD order TO results
+        END IF
+    END FOR
+
+    RETURN results
+END FUNCTION
+
+FUNCTION summarizeRevenue (orders)
+    IF LENGTH(orders) == 0 THEN
+        RETURN {
+            status : false,
+            message : "empty order"
+        }
+    END IF
+
+    SET sumAmount = orders[0].amount
+    SET average = 0
+    SET highest = orders[0]
+    SET lowest = orders[0]
+
+    FOR i FROM 1 TO LENGTH(orders) - 1
+        SET sumAmount = sumAmount + orders[i].amount
+        IF orders[i].amount > highest.amount THEN
+            SET highest = orders[i]
+        END IF
+        IF orders[i].amount < lowest.amount THEN
+            SET lowest = orders[i]
+        END IF
+    END FOR
+
+    IF sumAmount != 0 THEN
+        SET average = sumAmount / LENGTH(orders)
+    END IF
+
+    RETURN {
+            status : true,
+            data : {
+                total : sumAmount,
+                average : average,
+                highest : highest,
+                lowest : lowest
+            }
+        }
+END FUNCTION
+
+FUNCTION countOrders (orders, field)
+    SET results = {}
+
+    FOR EACH order IN orders
+        IF order[field] NOT EXIST IN results THEN
+            SET results[order[field]] = 1
+        ELSE
+            SET results[order[field]] = results[order[field]] + 1
+        END IF
+    END FOR
+
+   RETURN results
+END FUNCTION
+
+FUNCTION findOrdersByCustomer (orders, name)
+    SET results = []
+    SET isFound = false
+
+    FOR i FROM 0 TO LENGTH(orders) - 1
+        IF orders[i].customer == name THEN
+            SET product = {
+                product : orders[i].product,
+                amount : orders[i].amount
+            }
+
+            ADD product TO results
+            SET isFound = true
+        END IF
+    END FOR
+
+    IF NOT isFound THEN
+        RETURN {
+            status : isFound,
+            message : "not found"
+        }
+    END IF
+
+    RETURN {
+        status : isFound,
+        data : results
+    }
+END FUNCTION
+
+FUNCTION classifyOrdersByCustomer (orders)
+    SET results = {}
+
+    FOR EACH order IN orders
+        IF order.customer NOT EXIST IN results THEN
+            results[order.customer] = []
+        END IF
+
+        ADD order TO results[order.customer]
+    END FOR
+
+    RETURN results
+END FUNCTION
+
+FUNCTION calculateAmount (orders)
+    SET customerOrders = classifyOrdersByCustomer(orders)
+
+    SET results = []
+
+    FOR EACH customerName IN customerOrders
+        SET totalAmount = 0
+
+        FOR EACH order in customerOrders[customerName]
+            SET totalAmount = totalAmount + order.amount
+        END FOR
+
+        SET customer = {
+            customer : customerName,
+            amount : totalAmount
+        }
+
+        ADD customer TO results
+    END FOR
+
+    RETURN results
+END FUNCTION
+
+FUNCTION selectionSort (orders)
+    SET customerOrderAmount = calculateAmount (orders)
+
+    SET n = LENGTH(customerOrderAmount)
+    FOR i FROM 0 TO n - 2
+        SET maxIndex = i
+
+        FOR j FROM i + 1 TO n - 1
+            IF customerOrderAmount[j].amount > customerOrderAmount[maxIndex].amount THEN
+                SET maxIndex = j
+            END IF
+        END FOR
+
+        IF maxIndex != i THEN
+            SET temp = customerOrderAmount[i]
+            SET customerOrderAmount[i] = customerOrderAmount[maxIndex]
+            SET customerOrderAmount[maxIndex] = temp
+        END IF
+    END FOR
+
+    RETURN customerOrderAmount
+END FUNCTION
+
+FUNCTION main(orders, threshold, groupField, name)
+    SET filtered = filterOrders (orders, threshold)
+
+    SET summary = summarizeRevenue(orders)
+    SET orderGroup = countOrders(orders, groupField)
+    SET orderByCustomer = findOrdersByCustomer(orders, name)
+    SET sortedCustomerOrder = selectionSort(orders)
+
+    RETURN {
+        totalOrders : LENGTH(orders),
+        significantOrders : LENGTH(filtered),
+        summary : summary,
+        orderGroup : orderGroup,
+        orderByCustomer : orderByCustomer,
+        sortedCustomerOrder : sortedCustomerOrder
+    }
+
+END FUNCTION
+
+
+// Running app
+SET orders = [
+  {customer: "Aisha",  product: "Keyboard",   amount: 250,  category: "Electronics"},
+  {customer: "Budi",   product: "Notebook",   amount: 35,   category: "Stationery"},
+  {customer: "Aisha",  product: "Mouse",      amount: 90,   category: "Electronics"},
+  {customer: "Citra",  product: "Monitor",    amount: 1200, category: "Electronics"},
+  {customer: "Budi",   product: "Pen Set",    amount: 15,   category: "Stationery"},
+  {customer: "Dewi",   product: "Desk Lamp",  amount: 75,   category: "Home"},
+  {customer: "Citra",  product: "Chair",      amount: 320,  category: "Home"},
+  {customer: "Aisha",  product: "USB Cable",  amount: 20,   category: "Electronics"},
+  {customer: "Eko",    product: "Marker",     amount: 8,    category: "Stationery"},
+  {customer: "Dewi",   product: "Headphones", amount: 180,  category: "Electronics"}
+]
+SET threshold = 50
+SET groupField = "category"
+SET name = "Aisha"
+
+SET reports = main(orders, threshold, groupField, name)
+PRINT ("=== ONLINE STORE ORDER ANALYSIS ===")
+PRINT("Total orders: " + reports.totalOrders)
+PRINT("Significant orders (>=" + threshold + ") : " + reports.significantOrders)
+
+PRINT ("-- Revenue --")
+IF NOT reports.summary.status THEN
+    PRINT (reports.summary.message)
+ELSE
+    PRINT ("Total revenue: " + reports.summary.data.total)
+    PRINT ("Average order: " + reports.summary.data.average)
+    PRINT ("Highest: " + reports.summary.data.highest.product + " ( " + reports.summary.data.highest.amount + " )")
+    PRINT ("Lowest: " + reports.summary.data.lowest.product + " ( " + reports.summary.data.lowest.amount + " )")
+END IF
+
+PRINT ("-- Orders per category --")
+FOR EACH key IN reports.orderGroup
+    PRINT (key + " : " +  reports.orderGroup[key])
+END FOR
+
+PRINT ("-- Customer lookup: " + name + " --")
+IF NOT reports.orderByCustomer.status THEN
+    PRINT (reports.orderByCustomer.message)
+ELSE
+    FOR EACH product IN reports.orderByCustomer.data
+        PRINT (product.product + " - " + product.amount)
+    END FOR
+END IF
+
+PRINT ("-- Top customers --")
+SET i = 1
+FOR EACH customer IN reports.sortedCustomerOrder
+    PRINT (i + ". " + customer.customer + " - " + customer.amount)
+    SET i = i + 1
+END FOR
+
+

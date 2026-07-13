@@ -1,0 +1,122 @@
+FUNCTION main(lists, minScore, topN)
+	SET studentFiltered = filterByScore(lists, minScore)
+
+IF LENGTH(studentFiltered) == 0 THEN
+		return “No students meet minimum score”
+END IF
+
+	SET studentClass = groupByClass(studentFiltered)
+	SET studentSort = sorting(studentClass)
+	SET topStudent = getTopN(studentSort, 3)
+
+	RETURN topStudent
+END FUNCTION
+
+
+FUNCTION filterByScore (lists, minScore)
+	SET studentsPass = []
+	FOR i FORM 0 TO LENGTH(lists) - 1
+		IF lists[i].score >= minScore THEN
+			ADD list[i] TO studentsPass
+END IF
+	END FOR
+
+	RETURN studentsPass
+END FUNCTION
+
+FUNCTION groupByClass (lists)
+	SET classStudent = {}
+	FOR i FROM 0 TO LENGTH(lists) - 1
+		SET class = lists[i].class
+		IF class NOT IN classStudent THEN
+			SET classStudent[class] = []
+		END IF
+
+		ADD lists[i] TO classStudent[class]
+
+	return classStudent
+END FUNCTION
+
+FUNCTION sorting (studentsClass)
+	SET sortingClass = {}
+
+	FOR EACH class IN studentsClass
+SET classList = studentsClass[class]
+SET lengthOfList = LENGTH(classList)
+
+FOR i FROM 0 TO lengthOfList - 1
+FOR j FROM 0 TO lengthOfList - i - 2
+		IF classList[j].score < classList[j + 1].score THEN
+			SET temp = classList[j]
+			classList[j] = classList[j + 1]
+classList[j + 1] = temp
+		END IF
+	END FOR
+END FOR
+
+SET sortingClass[class] = classList
+END FOR
+
+RETURN sortingClass
+
+END FUNCTION
+
+
+FUNCTION getTopN (studentsClass, topN)
+	SET studentTopN = {}
+
+FOR EACH class IN studentsClass
+SET classList = studentsClass[class]
+SET lengthOfList = LENGTH(classList)
+SET temporaryStudentClass = []
+
+SET limit = MIN(topN, LENGTH(studentsClass))
+FOR i FROM 0 TO limit - 1
+	ADD classList[i] TO temporaryStudentClass
+END FOR
+
+SET studentTopN[class] = temporaryStudentClass
+END FOR
+
+	RETURN studentTopN
+END FUNCTION
+
+
+students = [
+  {name: "Alice", score: 85, class: "10A"},
+  {name: "Bob", score: 72, class: "10A"},
+  {name: "Charlie", score: 91, class: "10B"},
+  {name: "Diana", score: 68, class: "10A"},
+  {name: "Eve", score: 88, class: "10B"},
+  {name: "Frank", score: 55, class: "10A"},
+  {name: "Grace", score: 95, class: "10B"},
+  {name: "Henry", score: 82, class: "10A"},
+  {name: "Ivy", score: 78, class: "10B"},
+  {name: "Jack", score: 45, class: "10A"},
+  {name: "Kate", score: 92, class: "10C"},
+  {name: "Leo", score: 87, class: "10C"},
+  {name: "Mia", score: 65, class: "10C"},
+  {name: "Noah", score: 94, class: "10C"},
+  {name: "Olivia", score: 58, class: "10B"},
+  {name: "Peter", score: 89, class: "10C"},
+  {name: "Quinn", score: 76, class: "10B"},
+  {name: "Ryan", score: 83, class: "10A"},
+  {name: "Sophia", score: 90, class: "10C"},
+  {name: "Tom", score: 62, class: "10B"}
+]
+
+SET studentPerformance = main(students, 60, 3)
+IF LENGTH(studentPerformance) == 0 THEN
+	PRINT (studentPerformance)
+ELSE
+	PRINT (“=== TOP 3 STUDENTS PER CLASS ===”)
+FOR EACH class IN studentPerformance
+	PRINT (“Class ” + class + “:”)
+	FOR i FROM 0 TO LENGTH(class) - 1
+		PRINT (i + 1 + “. ” + class[i].name + “ - ” + class[i].score
+END FOR
+PRINT(“\n”)
+END FOR
+END IF
+
+
