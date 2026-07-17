@@ -1,3 +1,5 @@
+
+
 def filter_orders(orders, threshold):
     results = []
 
@@ -19,16 +21,23 @@ def summarize_revenue(orders):
     highest = orders[0]
     lowest = orders[0]
 
+    swap_h = 0
+    swap_l = 0
+
     for i in range(1, len(orders)):
         sum_amount += orders[i]["amount"]
 
         if orders[i]["amount"] > highest["amount"]:
             highest = orders[i]
+            swap_h += 1
 
         if orders[i]["amount"] < lowest["amount"]:
             lowest = orders[i]
+            swap_l += 1
 
     average = sum_amount / len(orders)
+    print("swap h: ", swap_h)
+    print("swap l: ", swap_l)
 
     return {
         "status": True,
@@ -116,11 +125,12 @@ def selection_sort(orders):
     customer_order_amount = calculate_amount(orders)
 
     n = len(customer_order_amount)
-
+    comparison = 0
+    swap = 0
     for i in range(n - 1):
         max_index = i
-
         for j in range(i + 1, n):
+            comparison += 1
             if customer_order_amount[j]["amount"] > customer_order_amount[max_index]["amount"]:
                 max_index = j
 
@@ -129,7 +139,9 @@ def selection_sort(orders):
                 customer_order_amount[max_index],
                 customer_order_amount[i],
             )
-
+            swap += 1
+    print(f"selection sort comparison: {comparison}")
+    print(f"selection sort swap: {swap}")
     return customer_order_amount
 
 

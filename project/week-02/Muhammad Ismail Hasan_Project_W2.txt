@@ -33,9 +33,7 @@ FUNCTION summarizeRevenue (orders)
         END IF
     END FOR
 
-    IF sumAmount != 0 THEN
-        SET average = sumAmount / LENGTH(orders)
-    END IF
+    SET average = FLOOR(sumAmount / LENGTH(orders))
 
     RETURN {
             status : true,

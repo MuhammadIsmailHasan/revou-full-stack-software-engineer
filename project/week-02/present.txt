@@ -1,0 +1,42 @@
+1. problem statement
+    halo teman, saya disini akan menjelaskan tentang solusi saya pada first progress week 0 dan 1.
+    disini terdapat 5 problem yang harus di seleisakan :
+        - filtering orders yang mempunyai orders amount diatas 50
+        - aggrasi
+        - kategorisasi order
+        - pencarian orders by customer name
+        - perangkingan order dari yang terbesar hingga terkecil berdasarkan customer
+2. approach
+    - filter : dengan threshold yang di tentukan yakni 50, maka jumlah signifikan order adalah 6.
+        > algoritma : linier search karena kebutuhan filter sehingga perlu loop ke semua data orders
+        > time complexity : adalah linier time, dengan 10 comparison
+        > edge case : jika orders kosong maka sudah ada mengembalikan empty list dan tidak terjadi error
+
+    - agreasi : disini terdapat 4 operasi yakni sum amount, average amount, highest amount dan lowest amount karena operasi yang dilakukan
+        membutuhkan loop yang sama maka saya jadikan 1 dalam function ini.
+        > algoritma : linier search karena dibutuhkan loop ke semua orders untuk menghitung total amount, mengkomparasi higest dan lowest
+        > time complexity: linier time, meskipun dalam 1 loop yang sama. total 10 operasi, 20 comparison, dan 4 swaps
+        > edge case : jika ordersnya tidak ada maka akan langsung di kembalikan empty order sehingga tidak melakukan operasi lain
+
+    - kategorisasi :
+        > algoritma : menggunakan dictionary yang memang paling cocok untuk kategorisasi, pencarian berdasarkan key lebih cepat dari pada index
+        > time complexity : liner time, dengan 10 operasi
+        > edge case : jika order kosong akan mengembalikan dictionary kosong
+
+    - pencarian : terdapat 2 opsi, menggunakan linear search atau binary search
+        > algoritme : linier search karena data belum berurutan, jika binary search harus di urutkan terlebih dahulu
+            - menggunakan list of dictinary data yang dicari adalah nama product dan amount nya yang lebih readable jika menggunakan dictionary
+        > time complexity : liner time, jika menggukan binary searh quadratik time pada sort nya meskipun pada binary search nya logaritmik time
+        > edge case : jika name customer tidak di temukan maka akan mengembalikan message not found
+
+    - perangkingan : terdapat 3 operasi yakni klasifikasi berdasarkan customer name, lalu dihitung total amount lalu baru di sort berdasarakan total amount
+        > algoritma : perlu di klasifikasikan dahulu karena perlu tau memudahkan perhitungan amount tiap customer
+            klasifikasi menggunakan dictinoary sedangkan untuk sort idealnya menggunakan list atau list of dictionary
+            maka ketika menghitung total amount dari dictonary hasil klasifikasi berdasarkan customer, maka fungsi kalkulasi ini ekan menghasilkan list of dictionar
+            dengan field atau key customer name dan total amount
+            lalu dilakukan sorting menggunakan selection sort karena lebih sedikit swap nilainya
+        > time complexity : linier time pada klasifikasi, lalu linier time juga pada kalkulasi meskipun ada nested loop tapi bukan n^2
+            quadratik pada selection sort dengan 10 comparison dan 3 swap
+        > edge case : jika order kosong akan mengembalikan list kosong
+
+
