@@ -27,7 +27,7 @@ SELECT id, username FROM users LIMIT 3;
 -- Remember: users table must exist first!
 CREATE TABLE orders (
 	id SERIAL PRIMARY KEY,
-	user_id INT NOT NULL REFERENCES users(id),
+	user_id INT NOT NULL,
 	total_amount NUMERIC(14, 2) NOT NULL,
 	ordered_at TIMESTAMP DEFAULT NOW(),
 	CONSTRAINT fk_orders_users 
