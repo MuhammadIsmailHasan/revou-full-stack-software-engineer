@@ -8,7 +8,10 @@ class Product:
         return self.stock > 0
 
     def apply_discount(self, percentage):
-        self.price = self.price - self.price * percentage
+        if percentage > 100 :
+            print(f"failed apply for {self.name}. only can apply between 1 and 100")
+        else :
+            self.price = self.price - self.price * (percentage / 100)
 
     def display(self):
         status = '[In Stock]' if self.is_available() else '[Out of Stock]'
@@ -59,10 +62,12 @@ keyboard.display()
 handphone.display()
 
 # TODO: Apply a discount to one product
-mouse.apply_discount(0.10)
+mouse.apply_discount(10)
 print()
 print("Apply discount at mouse product")
 mouse.display()
+
+handphone.apply_discount(120)
 
 # TODO: Try adding all products to the cart
 print()
