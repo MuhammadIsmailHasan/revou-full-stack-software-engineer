@@ -1,11 +1,13 @@
 from flask import Blueprint, jsonify, request
-from models import Product, User
+from models import Order, Product, User, Category
 from utils import db
 from sqlalchemy.exc import IntegrityError
 
 
 products_bp = Blueprint('products', __name__, url_prefix='/store')
 users_bp = Blueprint('users', __name__, url_prefix='/users')
+category_bp = Blueprint('categories', __name__, url_prefix='/categories')
+order_bp = Blueprint('orders', __name__, url_prefix='orders')
 
 
 @products_bp.route('/products', methods=['GET'])
@@ -35,9 +37,17 @@ def create_product():
 @products_bp.route('/products/<int:product_id>', methods=['GET'])
 def get_product(product_id):
     product = Product.query.get(product_id)
+    
     if product is None:
         return jsonify({"message": "Product not found", "status": "error"}), 404
-    return jsonify(product.show_detail()), 200
+    
+    return jsonify({
+        'id': product.id,
+        'name': product.name,
+        'price': product.price,
+        'stock': product.stock,
+        'category': product.category.name if product.category else None
+    }), 200
 
 
 @products_bp.route('/products/<int:product_id>', methods=['PUT'])
@@ -111,3 +121,18 @@ def get_user(user_id):
     except Exception as e:
         print(f"Error fetching user: {e}")
         return jsonify({"message": "Error fetching user", "status": "error"}), 500
+    
+
+@category_bp.route('/<int:category_id>', methods=['GET'])
+def get_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    
+    return jsonify({
+        'id': category.id,
+        'name': category.name,
+        'products': [
+            {'id': p.id, 'name': p.name, 'price': p.price}
+            for p in category.products
+        ]
+    }), 200
+

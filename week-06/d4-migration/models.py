@@ -1,6 +1,13 @@
 from datetime import datetime
 from utils import db
 
+class Category(db.Model):
+    __tablename__ = 'category'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+
+    products = db.relationship('Product', backref='category', lazy=True)
 
 class Product(db.Model):
     __tablename__ = 'products'
@@ -14,6 +21,8 @@ class Product(db.Model):
     is_active   = db.Column(db.Boolean, default=True)
     created_at  = db.Column(db.DateTime, default=datetime.now)
 
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    
     def show_detail(self):
         return {
             'id':          self.id,
@@ -56,3 +65,24 @@ class User(db.Model):
             'email': self.email,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
+        
+
+# TODO 1: Define the association table using db.Table()
+# It needs: order_id (FK → orders.id, PK) and product_id (FK → products.id, PK)
+order_products = db.Table(
+    'order_products',
+    db.Column('order_id', db.Integer, db.ForeignKey('orders.id'), primary_key=True),
+    db.Column('product_id', db.Integer, db.ForeignKey('products.id'), primary_key=True)
+)
+
+
+# TODO 2: Define the Order model
+class Order(db.Model):
+    __tablename__ = 'orders'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    total = db.Column(db.Float, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    
+    products = db.relationship('Product', secondary=order_products, backref='orders')
+    
