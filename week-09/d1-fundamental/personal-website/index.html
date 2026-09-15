@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Ismail Hasan Personal Website</title>
+</head>
+<body>
+    <div id="profile">
+        <nav class="menu">
+            <a href="#home">Muhammad Ismail Hasan</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <header class="header">
+            <h1>Muhammad Ismail Hasan</h1>
+            <p>Software Engineer</p>
+        </header>
+
+        <main>
+            <section id="about">
+                <h2>About Me</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, obcaecati aliquam provident suscipit labore voluptate earum voluptatem dolorum, excepturi mollitia, ipsum ratione neque aut alias. Aperiam ex vitae eaque illo.</p>
+            </section>
+
+            <section id="projects" class="projects">
+                <h2>Projects</h2>
+                <p>Based on learning and real production</p>
+
+                <article id="first-project" class="card">
+                    <h3>SIPMA</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, ipsum ex! Harum vel reprehenderit, omnis earum alias dignissimos iure voluptate beatae rem, delectus consequuntur ea! Fugit quia tenetur quod quam?</p>
+                </article>
+
+                <article id="second-project" class="card">
+                    <h3>Single Sign On</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt vero accusamus assumenda! Tempora animi ipsum quae a quaerat id excepturi alias placeat sint fugiat architecto exercitationem numquam, consectetur ad ipsa.</p>
+                </article>
+
+                <article id="third-project" class="card">
+                    <h3>Electonic Salary</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt vero accusamus assumenda! Tempora animi ipsum quae a quaerat id excepturi alias placeat sint fugiat architecto exercitationem numquam, consectetur ad ipsa.</p>
+                </article>
+            </section>
+
+            <section id="contact">
+                <h2>Contact Me</h2>
+
+                <article class="card">
+                    <form action="">
+                        <div>
+                            <label for="name">Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label for="email">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label for="age">Age</label>
+                            <input
+                                type="number"
+                                name="age"
+                                id="age"
+                            >
+                        </div>
+                        
+                        <div class="choice">
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="contact"
+                                    id="contact-email"
+                                    value="email"
+                                >
+                                Email
+                            </label>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="contact"
+                                    id="contact-phone"
+                                    value="phone"
+                                >
+                                Phone
+                            </label>
+
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="newsletter"
+                                    id="newsletter"
+                                    value="yes"
+                                >
+                                Subscribe to newsletter
+                            </label>
+                        </div>
+        
+                        <div>
+                            <label for="topic">Topic</label>
+                            <select name="topic" id="topic">
+                                <option value="frontend">Frontend</option>
+                                <option value="backend">Backend</option>
+                                <option value="cloud">Cloud</option>
+                            </select>
+                        </div>
+        
+                        <div>
+                            <label for="message">Message</label>
+                            <textarea
+                                name="message"
+                                id="message"
+                            ></textarea>
+                        </div>
+        
+                        <button type="submit">Send Message</button>
+                    </form>
+                </article>
+            </section>
+        </main>
+
+        <footer>
+            © 2026 Revou. All rights reserved
+        </footer>
+    </div>
+</body>
+</html>
