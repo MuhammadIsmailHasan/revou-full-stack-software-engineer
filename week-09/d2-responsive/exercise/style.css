@@ -1,9 +1,28 @@
+:root {
+    --bg: #f3f4f6;
+    --surface: #ffffff;
+
+    --text: #1f2937;
+    --text-action: #334258;
+    --text-muted: #6b7280;
+    --text-button: #ffffff;
+    --text-button-secondary: #d1d5db;
+
+    --border: #e5e7eb;
+
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary: #29ae7e;
+    --secondary-hover: #1c8c63;
+}
+
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: system-ui, sans-serif;
-    background: #f3f4f6;
-    color: #1f2937;
+    background: var(--bg);
+    color: var(--text);
     padding: 1.5rem;
 }
 
@@ -21,45 +40,83 @@ h1 { margin-bottom: 1rem; }
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    background: #fff;
+    background: var(--surface);
     padding: 1rem;
-    border: 1px solid beige;
     border-radius: 12px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+    border: 1px solid var(--border);
 }
 
 .thumb {
-    background: #eadada;
-    border: 1px solid #656970;
+    background: var(--bg);
+    border: 1px solid var(--surface);
     border-radius: 0.5rem;
     padding: 0.5rem;
     overflow: hidden;
     width: 100%;
+    aspect-ratio: 4 / 3;
+    height: auto;
 }
 
 .thumb img {
-    height: auto;
+    height: 100%;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
+.price {
+    color: var(--primary);
+}
 
-button {
-    margin-top: auto;
+.description {
+    counter-reset: var(--text-action);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.btn-cart, .btn-checkout {
     padding: 1rem 2rem;
-    color: white;
-    background: #004ebc;
-    border: 1px solid #004ebc;
     border-radius: 8px;
-    cursor: pointer;    
+    cursor: pointer;  
+    border: 1px solid var(--border);
+    color: var(--text-button);  
 }
 
-button:hover {
-    background: #214b83;
+.btn-cart {
+    background: var(--primary);
+}
+
+.btn-cart:hover {
+    background: var(--primary-hover);
+}
+
+.btn-checkout {
+    background: var(--secondary);
+}
+
+.btn-checkout:hover {
+    background: var(--secondary-hover);
 }
 
 @media (min-width: 640px) {
     .product-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .button-group {
+        flex-direction: row;
+    }
+
+    .btn-cart {
+        flex: 1;
+    }
+
+    .btn-checkout {
+        flex: 2;
     }
 }
 
