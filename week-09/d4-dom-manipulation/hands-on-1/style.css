@@ -1,0 +1,20 @@
+body {
+    font-family: system-ui, sans-serif;
+    padding: 1.5rem;
+    transition: background 0.2s, color 0.2s;
+}
+.profile { display: flex; align-items: center; gap: 1rem; }
+.profile img { border-radius: 50%; }
+.product {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.product-price { font-weight: bold; color: #2563eb; }
+
+/* Dark mode — applied when <body> has the "dark" class */
+body.dark { background: #111827; color: #f9fafb; }
+body.dark .product { border-color: #374151; }
