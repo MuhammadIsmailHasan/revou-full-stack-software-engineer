@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Perpus Merah Putih</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <script src='script.js' defer></script>
+</head>
+<body>
+  <!-- Day 1: semantic structure -->
+  <header>
+    <h1>Library Catalog</h1>
+    <h2>Welcome to Perpus Merah Putih</h2>
+    <p class="summary">
+      Showing <span id="count">0</span> items ·
+      Available Books: <span id="total">0</span> ·
+      Rent Book Value: <span id="sale-total">Rp 0</span>
+    </p>
+  </header>
+
+  <!-- Controls: live search + category dropdown -->
+  <section class="controls">
+    <input id="search" type="text" placeholder="Search products by name..." />
+    <select id="category"> 
+      <option value="All">Semua Kategori</option> 
+      <option value="Novel">Novel</option> 
+      <option value="Komik">Komik</option> 
+      <option value="Majalah">Majalah</option> 
+    </select>
+    <button id="sort">SORT ASC by Price</button>
+  </section>
+
+  <label>
+    <input type="checkbox" id="available">Show Available Books
+  </label>
+
+  <!-- Day 2 grid container — EMPTY on purpose; JS fills it -->
+  <main id="grid"></main>
+</body>
+</html>

@@ -1,0 +1,94 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; padding: 1.5rem; max-width: 900px; margin: 0 auto; color: #0f172a; }
+header h1 { margin: 0 0 0.25rem; }
+.summary { color: #475569; margin: 0 0 1rem; }
+.summary span { font-weight: bold; color: #2563eb; }
+
+/* Controls */
+.controls { 
+  display: flex; 
+  gap: 0.5rem; 
+  flex-wrap: wrap; 
+  margin-bottom: 1.5rem; }
+.controls input, .controls select, .controls button {
+  padding: 0.5rem 0.75rem; 
+  border: 1px solid #cbd5e1; 
+  border-radius: 8px; font-size: 1rem;
+}
+.controls input { flex: 1; min-width: 200px; }
+
+/* Day 2: responsive grid */
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+#available {
+  margin-bottom: 10px;
+}
+
+.card {
+  border: 1px solid #e5e7eb; border-radius: 12px; padding: 1rem;
+  background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  display: flex; flex-direction: column; gap: 0.25rem;
+  cursor: pointer;
+}
+
+.card.out { 
+  opacity: 0.55; 
+  cursor: not-allowed; 
+  pointer-events: none
+}
+
+.card h3 { 
+  margin: 0; 
+  font-size: 1rem; 
+}
+
+.card .cat { 
+  color: #64748b; 
+  font-size: 0.8rem; 
+}
+
+.card .price { 
+  color: #2563eb; 
+  font-weight: bold; 
+  margin: 0.3rem;
+}
+
+.card .price.discount {
+  color: red;
+  text-decoration: line-through;
+}
+
+.card .badge { 
+  align-self: flex-start; 
+  font-size: 0.7rem; 
+  padding: 0.1rem 0.4rem; 
+  border-radius: 999px; 
+  background: #fee2e2; 
+  color: #b91c1c; 
+}
+
+.card .badge.sale { 
+  background: #dcfce7; 
+  color: #166534; 
+}
+
+.empty { 
+  grid-column: 1 / -1; 
+  color: #9ca3af; 
+  font-style: italic; 
+  text-align: center; 
+  padding: 2rem; 
+}
+
+#sort:hover {
+  box-shadow: 1px 1px 1px #475569;
+  cursor: pointer;
+}
+
+.btn-click {
+  background-color: #64748b;
+}
