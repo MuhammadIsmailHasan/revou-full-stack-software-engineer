@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>My Profile</title>
+        <link rel="stylesheet" href="hand-on-1.css">
+    </head>
+    <body>
+        <div id="profile">
+            <header class="hero">
+                <h1>Muhamamad Ismail Hasan</h1>
+                <p class="tagline">Software Engineer</p>
+            </header>
+    
+            <nav class="menu">
+                <a href="#about">About Me</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            
+            <main>
+                <section id="about">
+                    <h2>About Me</h2>
+
+                    <article class="card">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates vel maiores sit dolores ducimus assumenda incidunt rerum tenetur est necessitatibus ipsam voluptatem iste quasi totam, quae magni dolorem? Reiciendis, cumque?</p>
+                    </article>
+                </section>
+                
+                <section id="projects">
+                    <h2>Project</h2>
+    
+                    <article class="card">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates vel maiores sit dolores ducimus assumenda incidunt rerum tenetur est necessitatibus ipsam voluptatem iste quasi totam, quae magni dolorem? Reiciendis, cumque?</p>
+                    </article>
+                    
+                </section>
+    
+                <section id="contact">
+                    <h2>Contact Me</h2>
+    
+                    <article class="card">
+                        <form action="">
+                            <div>
+                                <label for="name">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    required
+                                >
+                            </div>
+        
+                            <div>
+                                <label for="email">Email</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    required
+                                >
+                            </div>
+        
+                            <div>
+                                <label for="age">Age</label>
+                                <input
+                                    type="number"
+                                    name="age"
+                                    id="age"
+                                >
+                            </div>
+                            
+                            <div class="choice">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="contact"
+                                        id="contact-email"
+                                        value="email"
+                                    >
+                                    Email
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="contact"
+                                        id="contact-phone"
+                                        value="phone"
+                                    >
+                                    Phone
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="newsletter"
+                                        id="newsletter"
+                                        value="yes"
+                                    >
+                                    Subscribe to newsletter
+                                </label>
+                            </div>
+            
+                            <div>
+                                <label for="topic">Topic</label>
+                                <select name="topic" id="topic">
+                                    <option value="frontend">Frontend</option>
+                                    <option value="backend">Backend</option>
+                                    <option value="cloud">Cloud</option>
+                                </select>
+                            </div>
+            
+                            <div>
+                                <label for="message">Message</label>
+                                <textarea
+                                    name="message"
+                                    id="message"
+                                ></textarea>
+                            </div>
+            
+                            <button type="submit">Send Message</button>
+                        </form>
+                    </article>
+                </section>
+            </main>
+
+            <footer>
+                © 2026 Revou. All rights reserved
+            </footer>
+        </div>
+        
+    </body>
+</html>
