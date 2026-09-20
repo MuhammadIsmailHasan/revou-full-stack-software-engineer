@@ -1,0 +1,7 @@
+body { font-family: system-ui, sans-serif; padding: 1.5rem; max-width: 640px; }
+h1 { margin-bottom: 1rem; }
+.stage { border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; background: #f8fafc; }
+.stage h2 { font-size: 0.95rem; margin: 0 0 0.5rem; color: #334155; }
+.stage p { margin: 0; font-family: ui-monospace, monospace; }
+.total { font-size: 1.25rem; font-weight: bold; color: #2563eb; }
+.final { background: #ecfdf5; border-color: #a7f3d0; }
