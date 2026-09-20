@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    <!-- Day 1: semantic structure -->
+    <header>
+        <h1>Product Catalog</h1>
+        <p class="summary">
+            Showing <span id="count">0</span> items ·
+            Total: <span id="total">Rp 0</span> ·
+            Sale items value: <span id="sale-total">Rp 0</span>
+        </p>
+    </header>
+
+    <!-- Controls: live search + category dropdown -->
+    <section class="controls">
+        <input id="search" type="text" placeholder="Search products by name..." />
+        <select id="category">
+            <option value="All">All categories</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Accessories">Accessories</option>
+        </select>
+    </section>
+
+    <!-- Day 2 grid container — EMPTY on purpose; JS fills it -->
+    <main id="grid"></main>
+
+    <script src="script.js"></script>
+</body>
+</html>
