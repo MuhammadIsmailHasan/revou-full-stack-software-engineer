@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<link rel="stylesheet" href="../dist/output.css" />
+	</head>
+	<body>
+		<!-- ============================================================
+        Exercise: Rebuild a full shop page — TAILWIND UTILITIES ONLY.
+        The CSS tab must stay empty. Replace every TODO with classes.
+        ============================================================ -->
+		<div class="min-h-screen bg-gray-100">
+			<!-- TODO 1: header bar — flex, justify-between, items-center, padding, bg-white, shadow -->
+			<header
+				class="flex justify-between items-center p-4 bg-white shadow-lg"
+			>
+				<span class="text-xl font-bold text-blue-600">TokoTS</span>
+				<span class="text-gray-600">Cart (0)</span>
+			</header>
+
+			<main class="p-8">
+				<h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+					All Products
+				</h1>
+
+				<!-- TODO 2: grid — 2 cols on mobile, 3 on md+, gap-6, max-w-6xl mx-auto -->
+				<div
+					class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+				>
+					<!-- TODO 3: repeat this card 4+ times; make it a white rounded shadowed card -->
+					<article class="bg-white rounded-lg shadow-lg">
+						<img
+							class="w-full object-cover rounded-t-lg"
+							src="https://placehold.co/400x200/2563eb/ffffff?text=Laptop"
+							alt="Laptop"
+						/>
+						<div class="p-4">
+							<h2 class="text-lg font-semibold text-gray-800">
+								Laptop
+							</h2>
+							<p class="text-blue-600 font-bold mt-1">
+								Rp 15.000.000
+							</p>
+							<button
+								class="bg-green-700 hover:bg-green-600 text-white rounded-lg p-4 mt-4 w-full"
+							>
+								Add to cart
+							</button>
+						</div>
+					</article>
+					<article class="bg-white rounded-lg shadow-lg">
+						<img
+							class="w-full object-cover rounded-t-lg"
+							src="https://placehold.co/400x200/2563eb/ffffff?text=Laptop"
+							alt="Laptop"
+						/>
+						<div class="p-4">
+							<h2 class="text-lg font-semibold text-gray-800">
+								Laptop
+							</h2>
+							<p class="text-blue-600 font-bold mt-1">
+								Rp 15.000.000
+							</p>
+							<button
+								class="bg-green-700 hover:bg-green-600 text-white rounded-lg p-4 mt-4 w-full"
+							>
+								Add to cart
+							</button>
+						</div>
+					</article>
+					<article class="bg-white rounded-lg shadow-lg">
+						<img
+							class="w-full object-cover rounded-t-lg"
+							src="https://placehold.co/400x200/2563eb/ffffff?text=Laptop"
+							alt="Laptop"
+						/>
+						<div class="p-4">
+							<h2 class="text-lg font-semibold text-gray-800">
+								Laptop
+							</h2>
+							<p class="text-blue-600 font-bold mt-1">
+								Rp 15.000.000
+							</p>
+							<button
+								class="bg-green-700 hover:bg-green-600 text-white rounded-lg p-4 mt-4 w-full"
+							>
+								Add to cart
+							</button>
+						</div>
+					</article>
+					<article class="bg-white rounded-lg shadow-lg">
+						<img
+							class="w-full object-cover rounded-t-lg"
+							src="https://placehold.co/400x200/2563eb/ffffff?text=Laptop"
+							alt="Laptop"
+						/>
+						<div class="p-4">
+							<h2 class="text-lg font-semibold text-gray-800">
+								Laptop
+							</h2>
+							<p class="text-blue-600 font-bold mt-1">
+								Rp 15.000.000
+							</p>
+							<button
+								class="bg-green-700 hover:bg-green-600 text-white rounded-lg p-4 mt-4 w-full"
+							>
+								Add to cart
+							</button>
+						</div>
+					</article>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>
