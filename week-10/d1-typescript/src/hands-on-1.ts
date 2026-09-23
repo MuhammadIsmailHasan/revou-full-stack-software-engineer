@@ -23,3 +23,10 @@ console.log(describeCourse("Learn typescrip", 1));
 // console.log(describeCourse("Learn typescrip", true));
 
 console.log(typeof studentCount);
+
+function tesNull(name: string, address: null) : string {
+    return name;
+}
+
+// console.log(tesNull("rizka", 70));
+console.log(tesNull("rizka", null));
