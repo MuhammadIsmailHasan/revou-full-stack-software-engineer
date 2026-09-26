@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<link href="../dist/output.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- ============================================================
+        Hands-On 2: Make this responsive with breakpoint PREFIXES only.
+        Test every breakpoint in DevTools (375 / 640 / 768 / 1024 px).
+        Leave the CSS tab empty.
+        ============================================================ -->
+		<div class="min-h-screen bg-gray-100 p-4">
+			<!-- TODO 1: responsive hero heading — text-2xl md:text-4xl lg:text-5xl -->
+			<h1
+				class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-8"
+			>
+				Our Products
+			</h1>
+
+			<!-- TODO 2: responsive grid — 1 col mobile, 2 at sm, 3 at lg, centered -->
+			<div
+				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-center"
+			>
+				<article class="bg-white rounded-xl shadow-md overflow-hidden">
+					<img
+						class="w-full h-40 object-cover"
+						src="https://placehold.co/400x200/2563eb/ffffff?text=Laptop"
+						alt="Laptop"
+					/>
+					<div class="p-4">
+						<h2 class="text-lg font-bold text-gray-900 truncate">
+							Laptop Pro 14"
+						</h2>
+						<p class="text-xl font-bold text-blue-600 mt-1">
+							Rp 15.000.000
+						</p>
+						<span class="text-sm text-gray-500">Computers</span>
+					</div>
+				</article>
+
+				<article class="bg-white rounded-xl shadow-md overflow-hidden">
+					<img
+						class="w-full h-40 object-cover"
+						src="https://placehold.co/400x200/16a34a/ffffff?text=Mouse"
+						alt="Mouse"
+					/>
+					<div class="p-4">
+						<h2 class="text-lg font-bold text-gray-900 truncate">
+							Wireless Mouse
+						</h2>
+						<p class="text-xl font-bold text-blue-600 mt-1">
+							Rp 250.000
+						</p>
+						<span class="text-sm text-gray-500">Accessories</span>
+					</div>
+				</article>
+
+				<article class="bg-white rounded-xl shadow-md overflow-hidden">
+					<img
+						class="w-full h-40 object-cover"
+						src="https://placehold.co/400x200/db2777/ffffff?text=Keyboard"
+						alt="Keyboard"
+					/>
+					<div class="p-4">
+						<h2 class="text-lg font-bold text-gray-900 truncate">
+							Mechanical Keyboard
+						</h2>
+						<p class="text-xl font-bold text-blue-600 mt-1">
+							Rp 500.000
+						</p>
+						<span class="text-sm text-gray-500">Accessories</span>
+					</div>
+				</article>
+			</div>
+		</div>
+	</body>
+</html>
