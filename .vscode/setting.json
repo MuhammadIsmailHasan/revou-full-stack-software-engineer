@@ -3,5 +3,12 @@
         "typescript": "tsx"
     },
     "code-runner.runInTerminal": false,
-    "code-runner.fileDirectoryAsCwd": true
+    "code-runner.fileDirectoryAsCwd": true,
+    "tailwindCSS.includeLanguages": {
+        "typescript": "html"
+    },
+    "tailwindCSS.experimental.classRegex": [
+        ["class=\"([^\"]*)\""],
+        ["(?:base|variants)\\s*[:=]\\s*\"([^\"]*)\""]
+    ]
 }
