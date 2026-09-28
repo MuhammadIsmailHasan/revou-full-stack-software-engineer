@@ -7,6 +7,12 @@
     "tailwindCSS.includeLanguages": {
         "typescript": "html"
     },
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact",
+        "typescript": "typescriptreact"
+    },
+    "emmet.triggerExpansionOnTab": true,
+
     "tailwindCSS.experimental.classRegex": [
         ["class=\"([^\"]*)\""],
         ["(?:base|variants)\\s*[:=]\\s*\"([^\"]*)\""]
