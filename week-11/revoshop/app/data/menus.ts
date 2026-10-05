@@ -4,14 +4,18 @@ interface MenuProps {
 }
 
 export const menus: MenuProps[] = [
+	// {
+	// 	id: "components",
+	// 	label: "Components",
+	// },
+	// {
+	// 	id: "props",
+	// 	label: "Props",
+	// },
 	{
-		id: "components",
-		label: "Components",
-	},
-	{
-		id: "props",
-		label: "Props",
+		id: "controlledinput",
+		label: "Controlled Input",
 	},
 ];
 
-export type MenuId = "components" | "props";
+export type MenuId = "controlledinput";
