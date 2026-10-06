@@ -198,12 +198,13 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+
 const NAV_LINKS = [
   { href: '/',           label: 'Home' },
   { href: '/products',   label: 'Products' },
   { href: '/categories', label: 'Categories' },
-  { href: '/orders',     label: 'Orders' },
-  { href: '/dashboard',  label: 'Dashboard' },
 ];
 
 const PRODUCTS = [
@@ -213,36 +214,34 @@ const PRODUCTS = [
 ];
 
 export default function App() {
-  // Simulated browser URL: nav links + the SearchBar both update this.
+  const router = useRouter()
+  const parameters = useSearchParams()
+  
   const [url, setUrl] = useState('/products');
   const [query, setQuery] = useState('');
 
   // Stands in for usePathname(): the path part of the url, without the query string.
   const pathname = url.split('?')[0];
 
-  // Stands in for useSearchParams().get('search').
   const search = url.includes('?search=')
     ? decodeURIComponent(url.split('?search=')[1])
     : '';
+  const searchParam = parameters.get('search')
 
-  // TODO 1: const isActive = (href) => ... compare href to pathname
   const isActive = (href: string) => pathname === href;
 
-  // TODO 2: const visible = search ? PRODUCTS.filter(...) : PRODUCTS
   const visible = search ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(search.toLocaleLowerCase())) : PRODUCTS;
+  const visibleParam = searchParam ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(searchParam.toLocaleLowerCase())) : PRODUCTS;
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      // TODO 3: navigate to /products?search=<query>  (setUrl(...))
       setUrl(`/products?search=${query}`);
+      router.push(`?search=${encodeURIComponent(query)}`)
     }
   };
 
   return (
     <div className="font-sans">
-      {/* TODO 4: NavBar — brand "RevoShop" + the five NAV_LINKS,
-                  active link highlighted via isActive(link.href).
-                  Clicking a link should setUrl(link.href). */}
       <nav className="flex gap-4 text-sm">
         {NAV_LINKS.map((nav) => (
           <Link key={nav.href}
@@ -267,16 +266,13 @@ export default function App() {
           className="w-full border rounded-lg px-3 py-2 mb-3"
         />
 
-        {/* TODO 5: if search -> "Filtering by: <search>", else -> "Showing all products" */}
-        {search && (
+        {searchParam && (
           <p className="text-sm text-gray-600 mb-3">
-          Filtering by: <span className="font-semibold">{search}</span></p>
+          Filtering by: <span className="font-semibold">{searchParam}</span></p>
         )}
 
-        {/* TODO 6: render a card for each product in "visible":
-                    name, price, and an In stock / Out of stock badge */}
         <div className='grid gap-3'>
-          {visible.map((p) => (
+          {visibleParam.map((p) => (
             <div key={p.id} className="border rounded-lg p-4">
               <h2 className="font-semibold">{p.name}</h2>
               <p className="text-gray-600 text-sm">{p.price}</p>
