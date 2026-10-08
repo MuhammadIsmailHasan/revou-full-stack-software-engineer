@@ -194,96 +194,96 @@
 
 
 // DAY 2 - HANDS ON 4
-'use client'
-import Link from 'next/link';
-import { useState } from 'react';
+// 'use client'
+// import Link from 'next/link';
+// import { useState } from 'react';
 
-import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 
-const NAV_LINKS = [
-  { href: '/',           label: 'Home' },
-  { href: '/products',   label: 'Products' },
-  { href: '/categories', label: 'Categories' },
-];
+// const NAV_LINKS = [
+//   { href: '/',           label: 'Home' },
+//   { href: '/products',   label: 'Products' },
+//   { href: '/categories', label: 'Categories' },
+// ];
 
-const PRODUCTS = [
-  { id: 1, name: 'Laptop Stand',   price: 'Rp 250.000', inStock: true },
-  { id: 2, name: 'Wireless Mouse', price: 'Rp 150.000', inStock: true },
-  { id: 3, name: 'USB-C Hub',      price: 'Rp 320.000', inStock: false },
-];
+// const PRODUCTS = [
+//   { id: 1, name: 'Laptop Stand',   price: 'Rp 250.000', inStock: true },
+//   { id: 2, name: 'Wireless Mouse', price: 'Rp 150.000', inStock: true },
+//   { id: 3, name: 'USB-C Hub',      price: 'Rp 320.000', inStock: false },
+// ];
 
-export default function App() {
-  const router = useRouter()
-  const parameters = useSearchParams()
+// export default function App() {
+//   const router = useRouter()
+//   const parameters = useSearchParams()
   
-  const [url, setUrl] = useState('/products');
-  const [query, setQuery] = useState('');
+//   const [url, setUrl] = useState('/products');
+//   const [query, setQuery] = useState('');
 
-  // Stands in for usePathname(): the path part of the url, without the query string.
-  const pathname = url.split('?')[0];
+//   // Stands in for usePathname(): the path part of the url, without the query string.
+//   const pathname = url.split('?')[0];
 
-  const search = url.includes('?search=')
-    ? decodeURIComponent(url.split('?search=')[1])
-    : '';
-  const searchParam = parameters.get('search')
+//   const search = url.includes('?search=')
+//     ? decodeURIComponent(url.split('?search=')[1])
+//     : '';
+//   const searchParam = parameters.get('search')
 
-  const isActive = (href: string) => pathname === href;
+//   const isActive = (href: string) => pathname === href;
 
-  const visible = search ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(search.toLocaleLowerCase())) : PRODUCTS;
-  const visibleParam = searchParam ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(searchParam.toLocaleLowerCase())) : PRODUCTS;
+//   const visible = search ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(search.toLocaleLowerCase())) : PRODUCTS;
+//   const visibleParam = searchParam ? PRODUCTS.filter((p) => p.name.toLowerCase().includes(searchParam.toLocaleLowerCase())) : PRODUCTS;
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      setUrl(`/products?search=${query}`);
-      router.push(`?search=${encodeURIComponent(query)}`)
-    }
-  };
+//   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+//     if (e.key === 'Enter') {
+//       setUrl(`/products?search=${query}`);
+//       router.push(`?search=${encodeURIComponent(query)}`)
+//     }
+//   };
 
-  return (
-    <div className="font-sans">
-      <nav className="flex gap-4 text-sm">
-        {NAV_LINKS.map((nav) => (
-          <Link key={nav.href}
-            href={nav.href}
-            onClick={(e) => { e.preventDefault(); setUrl(nav.href)}}
-            className={isActive(nav.href)
-                ? 'cursor-pointer font-semibold text-blue-500 underline'
-                : 'text-gray-500 hover:text-black cursor-pointer'}
-          >
-            {nav.label}
-          </Link>          
-        ))}
-      </nav>
+//   return (
+//     <div className="font-sans">
+//       <nav className="flex gap-4 text-sm">
+//         {NAV_LINKS.map((nav) => (
+//           <Link key={nav.href}
+//             href={nav.href}
+//             onClick={(e) => { e.preventDefault(); setUrl(nav.href)}}
+//             className={isActive(nav.href)
+//                 ? 'cursor-pointer font-semibold text-blue-500 underline'
+//                 : 'text-gray-500 hover:text-black cursor-pointer'}
+//           >
+//             {nav.label}
+//           </Link>          
+//         ))}
+//       </nav>
 
-      <main className="p-6">
-        <p className="text-gray-400 font-mono text-xs mb-3">localhost:3000{url}</p>
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={onKeyDown}
-          placeholder="Search products..."
-          className="w-full border rounded-lg px-3 py-2 mb-3"
-        />
+//       <main className="p-6">
+//         <p className="text-gray-400 font-mono text-xs mb-3">localhost:3000{url}</p>
+//         <input
+//           value={query}
+//           onChange={(e) => setQuery(e.target.value)}
+//           onKeyDown={onKeyDown}
+//           placeholder="Search products..."
+//           className="w-full border rounded-lg px-3 py-2 mb-3"
+//         />
 
-        {searchParam && (
-          <p className="text-sm text-gray-600 mb-3">
-          Filtering by: <span className="font-semibold">{searchParam}</span></p>
-        )}
+//         {searchParam && (
+//           <p className="text-sm text-gray-600 mb-3">
+//           Filtering by: <span className="font-semibold">{searchParam}</span></p>
+//         )}
 
-        <div className='grid gap-3'>
-          {visibleParam.map((p) => (
-            <div key={p.id} className="border rounded-lg p-4">
-              <h2 className="font-semibold">{p.name}</h2>
-              <p className="text-gray-600 text-sm">{p.price}</p>
-              <span className={p.inStock
-                ? 'text-xs text-green-700 bg-green-100 rounded px-2 py-0.5'
-                : 'text-xs text-red-700 bg-red-100 rounded px-2 py-0.5'}>
-                {p.inStock ? 'In stock' : 'Out of stock'}
-              </span>
-            </div>))}
-        </div>
-      </main>
-    </div>
-  );
-}
+//         <div className='grid gap-3'>
+//           {visibleParam.map((p) => (
+//             <div key={p.id} className="border rounded-lg p-4">
+//               <h2 className="font-semibold">{p.name}</h2>
+//               <p className="text-gray-600 text-sm">{p.price}</p>
+//               <span className={p.inStock
+//                 ? 'text-xs text-green-700 bg-green-100 rounded px-2 py-0.5'
+//                 : 'text-xs text-red-700 bg-red-100 rounded px-2 py-0.5'}>
+//                 {p.inStock ? 'In stock' : 'Out of stock'}
+//               </span>
+//             </div>))}
+//         </div>
+//       </main>
+//     </div>
+//   );
+// }
