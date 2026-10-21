@@ -13,11 +13,19 @@ test("a user can register, log in, and log out", async ({ page }) => {
 
 	// --- Login ---
 	// TODO 1: fill email-input + password-input with the SAME credentials, then click login-submit
+	await page.goto("http://localhost:3000/login");
+	await page.getByTestId("email-input").fill("revouser@revou.co");
+	await page.getByTestId("password-input").fill("secret123");
+	await page.getByRole("button", { name: "Sign in" }).click();
+	await expect(page).toHaveURL("/");
 
 	// TODO 2: assert toHaveURL('/') and nav-username has text 'revouser'
+	await expect(page.getByTestId("nav-username")).toHaveText("revouser");
 
 	// --- Logout ---
 	// TODO 3: click nav-logout
+	await page.getByTestId("nav-logout").click();
 
 	// TODO 4: assert toHaveURL('/login') and nav-username is hidden
+	await expect(page).toHaveURL("/login");
 });

@@ -1,86 +1,112 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><title>Dashboard - RevoShop</title><link rel="stylesheet" href="/style.css"></head>
-<body>
-  <nav></nav>
-  <h1 data-testid="dashboard-heading">Admin Dashboard</h1>
-  <!-- No login guard here: the playground treats /dashboard as already signed in as admin -->
-  <button data-testid="add-product-button">Add product</button>
+	<head>
+		<meta charset="utf-8" />
+		<title>Dashboard - RevoShop</title>
+		<link rel="stylesheet" href="/style.css" />
+	</head>
+	<body>
+		<nav></nav>
+		<h1 data-testid="dashboard-heading">Admin Dashboard</h1>
+		<!-- No login guard here: the playground treats /dashboard as already signed in as admin -->
+		<button data-testid="add-product-button">Add product</button>
 
-  <form id="form" hidden>
-    <label for="name">Name</label>
-    <input id="name" data-testid="name-input">
-    <label for="price">Price</label>
-    <input id="price" type="number" data-testid="price-input">
-    <p><button type="submit" data-testid="save-product">Save</button></p>
-  </form>
+		<form id="form" hidden>
+			<label for="name">Name</label>
+			<input id="name" data-testid="name-input" />
+			<label for="price">Price</label>
+			<input id="price" type="number" data-testid="price-input" />
+			<p>
+				<button type="submit" data-testid="save-product">Save</button>
+			</p>
+		</form>
 
-  <table>
-    <thead><tr><th>Product</th><th>Price</th><th>Actions</th></tr></thead>
-    <tbody id="rows"></tbody>
-  </table>
-  <div class="toast" data-testid="toast-success" role="status" hidden>Saved successfully</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Price</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody id="rows"></tbody>
+		</table>
+		<div class="toast" data-testid="toast-success" role="status" hidden>
+			Saved successfully
+		</div>
 
-  <script type="module" src="/app.js"></script>
-  <script>
-    // Products live in memory, so every page load starts from the same 6 products
-    let products = [
-      { id: 1, name: "Laptop Stand", price: 250000 },
-      { id: 2, name: "Mechanical Keyboard", price: 850000 },
-      { id: 3, name: "USB-C Hub", price: 320000 },
-      { id: 4, name: "Wireless Mouse", price: 180000 },
-      { id: 5, name: "Webcam", price: 450000 },
-      { id: 6, name: "Monitor Light", price: 275000 },
-    ];
-    let nextId = 7;
-    let editingId = null;
+		<script type="module" src="/app.js"></script>
+		<script>
+			// Products live in memory, so every page load starts from the same 6 products
+			let products = [
+				{ id: 1, name: "Laptop Stand", price: 250000 },
+				{ id: 2, name: "Mechanical Keyboard", price: 850000 },
+				{ id: 3, name: "USB-C Hub", price: 320000 },
+				{ id: 4, name: "Wireless Mouse", price: 180000 },
+				{ id: 5, name: "Webcam", price: 450000 },
+				{ id: 6, name: "Monitor Light", price: 275000 },
+			];
+			let nextId = 7;
+			let editingId = null;
 
-    const $ = (sel) => document.querySelector(sel);
-    const rupiah = (n) => "Rp " + n.toLocaleString("id-ID");
+			const $ = (sel) => document.querySelector(sel);
+			const rupiah = (n) => "Rp " + n.toLocaleString("id-ID");
 
-    function render() {
-      $("#rows").innerHTML = "";
-      for (const p of products) {
-        const row = document.createElement("tr");
-        row.dataset.testid = `product-row-${p.id}`;
-        row.innerHTML = `<td>${p.name}</td><td>${rupiah(p.price)}</td>
+			function render() {
+				$("#rows").innerHTML = "";
+				for (const p of products) {
+					const row = document.createElement("tr");
+					row.dataset.testid = `product-row-${p.id}`;
+					row.innerHTML = `<td>${p.name}</td><td>${rupiah(p.price)}</td>
           <td><button data-testid="edit-product-${p.id}">Edit</button>
               <button data-testid="delete-product-${p.id}">Delete</button></td>`;
-        row.querySelector(`[data-testid=edit-product-${p.id}]`).onclick = () => openForm(p);
-        row.querySelector(`[data-testid=delete-product-${p.id}]`).onclick = () => {
-          if (confirm(`Delete ${p.name}?`)) {
-            products = products.filter((x) => x.id !== p.id);
-            render();
-          }
-        };
-        $("#rows").append(row);
-      }
-    }
+					row.querySelector(
+						`[data-testid=edit-product-${p.id}]`,
+					).onclick = () => openForm(p);
+					row.querySelector(
+						`[data-testid=delete-product-${p.id}]`,
+					).onclick = () => {
+						if (confirm(`Delete ${p.name}?`)) {
+							products = products.filter((x) => x.id !== p.id);
+							render();
+						}
+					};
+					$("#rows").append(row);
+				}
+			}
 
-    function openForm(product) {
-      editingId = product?.id ?? null;
-      $("#name").value = product?.name ?? "";
-      $("#price").value = product?.price ?? "";
-      $("#form").hidden = false;
-    }
+			function openForm(product) {
+				editingId = product?.id ?? null;
+				$("#name").value = product?.name ?? "";
+				$("#price").value = product?.price ?? "";
+				$("#form").hidden = false;
+			}
 
-    function toast() {
-      const el = $("[data-testid=toast-success]");
-      el.hidden = false;
-      setTimeout(() => (el.hidden = true), 3000);
-    }
+			function toast() {
+				const el = $("[data-testid=toast-success]");
+				el.hidden = false;
+				setTimeout(() => (el.hidden = true), 3000);
+			}
 
-    $("[data-testid=add-product-button]").onclick = () => openForm(null);
-    $("#form").onsubmit = (e) => {
-      e.preventDefault();
-      const data = { name: $("#name").value, price: Number($("#price").value) };
-      if (editingId === null) products.push({ id: nextId++, ...data });
-      else products = products.map((p) => (p.id === editingId ? { ...p, ...data } : p));
-      $("#form").hidden = true;
-      render();
-      toast();
-    };
-    render();
-  </script>
-</body>
+			$("[data-testid=add-product-button]").onclick = () =>
+				openForm(null);
+			$("#form").onsubmit = (e) => {
+				e.preventDefault();
+				const data = {
+					name: $("#name").value,
+					price: Number($("#price").value),
+				};
+				if (editingId === null)
+					products.push({ id: nextId++, ...data });
+				else
+					products = products.map((p) =>
+						p.id === editingId ? { ...p, ...data } : p,
+					);
+				$("#form").hidden = true;
+				render();
+				toast();
+			};
+			render();
+		</script>
+	</body>
 </html>

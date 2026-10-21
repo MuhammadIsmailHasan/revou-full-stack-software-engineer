@@ -1,42 +1,53 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><title>Products - RevoShop</title><link rel="stylesheet" href="/style.css"></head>
-<body>
-  <nav></nav>
-  <h1 data-testid="products-heading">Products</h1>
-  <input type="search" placeholder="Search products" aria-label="Search products">
-  <p data-testid="loading">Loading products...</p>
-  <div id="list"></div>
-  <script type="module">
-    import { addToCart } from "/app.js";
-    const PRODUCTS = [
-      { name: "Laptop Stand", price: 250000 },
-      { name: "Mechanical Keyboard", price: 850000 },
-      { name: "USB-C Hub", price: 320000 },
-      { name: "Wireless Mouse", price: 180000 },
-    ];
-    const list = document.querySelector("#list");
-    const search = document.querySelector("input");
+	<head>
+		<meta charset="utf-8" />
+		<title>Products - RevoShop</title>
+		<link rel="stylesheet" href="/style.css" />
+	</head>
+	<body>
+		<nav></nav>
+		<h1 data-testid="products-heading">Products</h1>
+		<input
+			type="search"
+			placeholder="Search products"
+			aria-label="Search products"
+		/>
+		<p data-testid="loading">Loading products...</p>
+		<div id="list"></div>
+		<script type="module">
+			import { addToCart } from "/app.js";
+			const PRODUCTS = [
+				{ name: "Laptop Stand", price: 250000 },
+				{ name: "Mechanical Keyboard", price: 850000 },
+				{ name: "USB-C Hub", price: 320000 },
+				{ name: "Wireless Mouse", price: 180000 },
+			];
+			const list = document.querySelector("#list");
+			const search = document.querySelector("input");
 
-    function render() {
-      const q = search.value.toLowerCase();
-      list.innerHTML = "";
-      for (const p of PRODUCTS.filter((p) => p.name.toLowerCase().includes(q))) {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.dataset.testid = "product-card";
-        card.innerHTML = `<div><strong>${p.name}</strong><br>Rp ${p.price.toLocaleString("id-ID")}</div>
+			function render() {
+				const q = search.value.toLowerCase();
+				list.innerHTML = "";
+				for (const p of PRODUCTS.filter((p) =>
+					p.name.toLowerCase().includes(q),
+				)) {
+					const card = document.createElement("div");
+					card.className = "card";
+					card.dataset.testid = "product-card";
+					card.innerHTML = `<div><strong>${p.name}</strong><br>Rp ${p.price.toLocaleString("id-ID")}</div>
           <button>Add to cart</button>`;
-        card.querySelector("button").onclick = () => addToCart(p.name);
-        list.append(card);
-      }
-    }
-    // Products appear after a delay to show off Playwright's auto-waiting
-    setTimeout(() => {
-      document.querySelector("[data-testid=loading]").remove();
-      render();
-    }, 800);
-    search.oninput = render;
-  </script>
-</body>
+					card.querySelector("button").onclick = () =>
+						addToCart(p.name);
+					list.append(card);
+				}
+			}
+			// Products appear after a delay to show off Playwright's auto-waiting
+			setTimeout(() => {
+				document.querySelector("[data-testid=loading]").remove();
+				render();
+			}, 800);
+			search.oninput = render;
+		</script>
+	</body>
 </html>
