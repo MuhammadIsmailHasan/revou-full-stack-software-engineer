@@ -101,7 +101,7 @@ function Header() {
         );
     }
 
-    export default function App() {
+export default function App() {
     return (
         <AuthProvider>
             <main className="font-sans p-6 bg-gray-50 min-h-screen">
