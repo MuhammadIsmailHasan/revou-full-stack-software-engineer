@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Register - RevoShop</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+  <nav></nav>
+  <h1 data-testid="register-heading">Register</h1>
+  <form id="form" novalidate>
+    <label for="username">Username</label>
+    <input id="username" data-testid="username-input">
+    <p role="alert" data-testid="username-error" hidden>Username is required</p>
+
+    <label for="email">Email</label>
+    <input id="email" data-testid="email-input">
+    <p role="alert" data-testid="email-error" hidden>Enter a valid email address</p>
+
+    <label for="password">Password</label>
+    <input id="password" type="password" data-testid="password-input">
+    <p role="alert" data-testid="password-error" hidden>Password must be at least 6 characters</p>
+
+    <label for="confirm">Confirm password</label>
+    <input id="confirm" type="password" data-testid="confirm-password-input">
+    <p role="alert" data-testid="confirm-password-error" hidden>Passwords do not match</p>
+
+    <p><button type="submit" data-testid="register-submit">Register</button></p>
+  </form>
+  <script type="module">
+    import { registerUser } from "/app.js";
+    const $ = (id) => document.querySelector(id);
+    // field -> [input, error element, is the value valid?]
+    const rules = {
+      username: [$("#username"), $("[data-testid=username-error]"), (v) => v.trim() !== ""],
+      email: [$("#email"), $("[data-testid=email-error]"), (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+      password: [$("#password"), $("[data-testid=password-error]"), (v) => v.length >= 6],
+      confirm: [$("#confirm"), $("[data-testid=confirm-password-error]"), (v) => v !== "" && v === $("#password").value],
+    };
+
+    function check(name) {
+      const [input, error, isValid] = rules[name];
+      const ok = isValid(input.value);
+      error.hidden = ok;
+      return ok;
+    }
+
+    // Re-validate a field while the user types, so its error clears once it is fixed
+    for (const name of Object.keys(rules)) {
+      rules[name][0].addEventListener("input", () => {
+        if (!rules[name][1].hidden) check(name);
+      });
+    }
+
+    $("#form").onsubmit = (e) => {
+      e.preventDefault();
+      const results = Object.keys(rules).map(check); // check every field so all errors show
+      if (!results.every(Boolean)) return;
+      registerUser({ username: $("#username").value, email: $("#email").value, password: $("#password").value });
+      location.href = "/login";
+    };
+  </script>
+</body>
+</html>
